@@ -2,8 +2,6 @@ package customview.gakk.com.mvvmsampleapp.data.network
 
 import customview.gakk.com.mvvmsampleapp.data.network.responses.AuthResponse
 import okhttp3.OkHttpClient
-import okhttp3.ResponseBody
-import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -20,15 +18,24 @@ interface ApiService {
     @FormUrlEncoded
     @POST("login")
     suspend fun userLogin(
-        @Field("email") email : String,
-        @Field("password") password:String
+        @Field("email") email: String,
+        @Field("password") password: String
     ): Response<AuthResponse>
 
 
-    companion object{
+    @FormUrlEncoded
+    @POST("signup")
+    suspend fun userSignup(
+        @Field("name") name: String,
+        @Field("email") email: String,
+        @Field("password") password: String
+    ): Response<AuthResponse>
+
+
+    companion object {
         operator fun invoke(
             networkConnectionInterceptor: NetworkConnectionInterceptor
-        ) : ApiService{
+        ): ApiService {
 
             val okkHttpClient = OkHttpClient.Builder()
                 .addInterceptor(networkConnectionInterceptor)
