@@ -27,7 +27,7 @@ abstract class SafeApiRequest {
                     message.append("\n")
                 }
             }
-            message.append("Erro code: ${response.code()}")
+            message.append("Error code: ${response.code()}")
             throw ApiException(message.toString())
         }
     }
